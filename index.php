@@ -1,17 +1,60 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        // put your code here
-        ?>
-    </body>
-</html>
+<?php
+
+$apipath = 'http://api.openweathermap.org/data/2.5/weather?q=dubna,ru&units=metric&appid=bb3b71163929908d7327cab9dcb39189';
+$local_cache = 'cache.txt';
+$cache_time = time('now') - filemtime($local_cache);
+
+var_dump($cache_time);
+
+if (file_exists($local_cache) && $cache_time < 600)  {
+
+    //echo 'Кэш есть и он живой';
+    $info = read_from_cache();
+    
+    echo 'Город ' . $info['name'] . ' Температура ' . $info['main']['temp']; 
+}
+    
+else {    
+
+get_weather();
+
+}
+
+function read_from_cache() {
+    
+    global $local_cache;
+    
+    $link = fopen($local_cache, "r");
+    
+    $data = fread($link, filesize($local_cache));
+    
+    $decode_data = json_decode($data, true);
+    
+    echo '<pre>';
+    print_r($decode_data);
+    
+    return $decode_data;
+}
+
+function get_weather() {
+
+    global $apipath;
+    global $local_cache;
+    
+    
+    
+    $link = fopen($apipath, "r");
+    
+    $apidata = stream_get_contents($link);
+    
+    //$data = json_decode($apidata, true);
+    
+    //echo '<pre>';
+    //var_dump($data);
+file_put_contents($local_cache, $apidata);
+
+}
+
+
+
+?>
