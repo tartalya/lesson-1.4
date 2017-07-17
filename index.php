@@ -6,33 +6,28 @@ $cache_time = time('now') - filemtime($local_cache);
 
 var_dump($cache_time);
 
-if (file_exists($local_cache) && $cache_time < 600)  {
+if (file_exists($local_cache) && $cache_time < 600) {
 
     //echo 'Кэш есть и он живой';
     $info = read_from_cache();
-    
-    echo 'Город ' . $info['name'] . ' Температура ' . $info['main']['temp']; 
-}
-    
-else {    
 
-get_weather();
+    echo 'Город ' . $info['name'] . ' Температура ' . $info['main']['temp'];
+} else {
 
+    get_weather();
 }
 
 function read_from_cache() {
-    
+
     global $local_cache;
-    
+
     $link = fopen($local_cache, "r");
-    
+
     $data = fread($link, filesize($local_cache));
-    
+
     $decode_data = json_decode($data, true);
-    
-    echo '<pre>';
-    print_r($decode_data);
-    
+
+
     return $decode_data;
 }
 
@@ -40,21 +35,16 @@ function get_weather() {
 
     global $apipath;
     global $local_cache;
-    
-    
-    
+
+
+
     $link = fopen($apipath, "r");
-    
+
     $apidata = stream_get_contents($link);
-    
+
     //$data = json_decode($apidata, true);
-    
     //echo '<pre>';
     //var_dump($data);
-file_put_contents($local_cache, $apidata);
-
+    file_put_contents($local_cache, $apidata);
 }
-
-
-
 ?>
