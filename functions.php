@@ -1,39 +1,34 @@
 <?php
 
-function read_from_cache() {
+function read_from_cache($file) {
 
-    global $local_cache;
+    $link = fopen($file, "r");
 
-    $link = fopen($local_cache, "r");
-
-    $data = fread($link, filesize($local_cache));
-
+    $data = fread($link, filesize($file));
+    fclose($link);
     $decode_data = json_decode($data, true);
 
 
     return $decode_data;
 }
 
-function get_weather() {
+function get_weather($url, $filename) {
 
-    global $apipath;
-    global $local_cache;
+    echo 'Обновляю данные, пожалуйста подождите.<br>';
 
-    echo 'Обновляю данные, пожалуйста подождите.';
+    $link = fopen($url, "r");
 
-    $link = fopen($apipath, "r");
+    if (!$apidata = stream_get_contents($link)) {
 
+        echo 'Сервер недоступен';
 
+        return false;
+    } else {
 
-    $apidata = stream_get_contents($link);
+        file_put_contents($filename, $apidata);
 
-    //$data = json_decode($apidata, true);
-    //echo '<pre>';
-    //var_dump($data);
-    file_put_contents($local_cache, $apidata);
-    ?>
-    <meta http-equiv="refresh" content="3;URL=<?= $_SERVER['PHP_SELF'] ?>" />
-    <?php
+        return true;
+    }
 }
-?>
 
+?>
