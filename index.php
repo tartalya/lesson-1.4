@@ -7,13 +7,11 @@ $max_cache_time = 300;
 $timezone = (3 * 60 * 60);
 
 
-
 require_once'functions.php';
-require_once'arrays.php';
+
 
 if (!file_exists($local_cache)) {
 
-    echo 'Обновление<br>';
     touch('cache.txt'); // На тот случай если не пройдет put_content(не будет связи с api сервером), появится хотя бы пустой.
     get_weather($apipath, $local_cache);
 }
@@ -23,11 +21,7 @@ $cache_time = time('now') - filemtime($local_cache);
 
 if ($cache_time > $max_cache_time) {
 
-    echo 'Обновление<br>';
     get_weather($apipath, $local_cache);
-} else {
-
-    echo 'Обновление не требуется ' . $cache_time;
 }
 
 
@@ -38,6 +32,6 @@ if (file_exists($local_cache) && filesize($local_cache) > 0) {
     require_once'template.php';
 } else {
 
-    echo 'у меня нет даже закешированных данных для отображения';
+    echo 'у меня нет даже закешированных данных для отображения'; // Маловероятно конечно
 }
 ?>

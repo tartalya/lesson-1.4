@@ -14,13 +14,9 @@ function read_from_cache($file) {
 
 function get_weather($url, $filename) {
 
-    echo 'Обновляю данные, пожалуйста подождите.<br>';
-
     $link = fopen($url, "r");
 
     if (!$apidata = stream_get_contents($link)) {
-
-        echo 'Сервер недоступен';
 
         return false;
     } else {

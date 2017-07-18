@@ -1,3 +1,8 @@
+<?php
+include_once 'images.php';
+?>
+
+
 <html lang="ru">
     <head>
         <title>Погода</title>
@@ -36,7 +41,7 @@
         </dl>
         <dl>
             <dt>сейчас </dt>
-            <dd><?= $info['weather'][0]['description'] ?> <img src="<?= $api_icon_path . $icons[$info['weather'][0]['id']]?>"></dd>
+            <dd><?= $info['weather'][0]['description'] ?> <img src="<?= $img_url ?>"></dd>
         </dl>
         <dl>
             <dt>Влажность </dt>
@@ -52,12 +57,7 @@
             <dd><?= date('H:i:s', $info['sys']['sunset'] + date($timezone)) ?></dd>
         </dl>
 
-        <?php
-        //echo '<pre>';
 
-        //var_dump($icons);
-        //print_r($info);
-        ?>
 
     </body>
 </html>
