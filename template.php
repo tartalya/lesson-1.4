@@ -49,12 +49,12 @@ include_once 'images.php';
         </dl>
         <dl>
             <dt>Восход</dt>
-            <dd><?= date('H:i:s', $info['sys']['sunrise'] + date($timezone)) ?></dd>
+            <dd><?= $info['sunrise_utc'] ?></dd>
         </dl>
 
         <dl>
             <dt>Закат</dt>
-            <dd><?= date('H:i:s', $info['sys']['sunset'] + date($timezone)) ?></dd>
+            <dd><?= $info['sunset_utc'] ?></dd>
         </dl>
 
 
