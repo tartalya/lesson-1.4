@@ -1,66 +1,63 @@
 <html lang="ru">
-<head>
-    <title>Погода</title>
-    <meta charset="utf-8">
-    
-    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: sans-serif;
-        }
-        dl {
-            display: table-row;
-        }
-        dt {
-            font-family: Oswald;
-            display: table-cell;
-            padding: 5px 10px;
-        }
-        dd {
-            font-family: Oswald;
-            display: table-cell;
-            padding: 5px 10px;
-        }
-    </style>
-</head>
-<body>
-<h1>Температура в городе: <?= $info['name'] ?></h1>
-<dl>
-    <dt>Температура</dt>
-    <dd><?= round ($info['main']['temp']) ?> Градусов цельсия</dd>
-</dl>
-<dl>
-    <dt>Скорость ветра</dt>
-    <dd><?= $info['wind']['speed'] ?> мс</dd>
-</dl>
-<dl>
-    <dt>сейчас </dt>
-    <dd><?= $info['weather'][0]['description'] ?></dd>
-</dl>
-<dl>
-    <dt>Влажность </dt>
-    <dd><?= $info['main']['humidity'] ?> %</dd>
-</dl>
-<dl>
-    <dt>Восход</dt>
-    <dd><?= date('H:i:s', $info['sys']['sunrise'] + date('H', $timezone)) ?></dd>
-</dl>
+    <head>
+        <title>Погода</title>
+        <meta charset="utf-8">
 
-<dl>
-    <dt>Закат</dt>
-    <dd><?= date('H:i:s', $info['sys']['sunset'] + date('H', $timezone)) ?></dd>
-</dl>
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
-<?php
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            dl {
+                display: table-row;
+            }
+            dt {
+                font-family: Oswald;
+                display: table-cell;
+                padding: 5px 10px;
+            }
+            dd {
+                font-family: Oswald;
+                display: table-cell;
+                padding: 5px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Температура в городе: <?= $info['name'] ?></h1>
+        <dl>
+            <dt>Температура</dt>
+            <dd><?= round($info['main']['temp']) ?> Градусов цельсия</dd>
+        </dl>
+        <dl>
+            <dt>Скорость ветра</dt>
+            <dd><?= $info['wind']['speed'] ?> мс</dd>
+        </dl>
+        <dl>
+            <dt>сейчас </dt>
+            <dd><?= $info['weather'][0]['description'] ?> <img src="<?= $api_icon_path . $icons[$info['weather'][0]['id']]?>"></dd>
+        </dl>
+        <dl>
+            <dt>Влажность </dt>
+            <dd><?= $info['main']['humidity'] ?> %</dd>
+        </dl>
+        <dl>
+            <dt>Восход</dt>
+            <dd><?= date('H:i:s', $info['sys']['sunrise'] + date($timezone)) ?></dd>
+        </dl>
 
+        <dl>
+            <dt>Закат</dt>
+            <dd><?= date('H:i:s', $info['sys']['sunset'] + date($timezone)) ?></dd>
+        </dl>
 
+        <?php
+        //echo '<pre>';
 
-echo '<pre>';
+        //var_dump($icons);
+        //print_r($info);
+        ?>
 
-
-print_r($info);
-?>
-
-</body>
+    </body>
 </html>
