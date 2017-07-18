@@ -24,6 +24,7 @@ function get_weather($url, $filename) {
     } else {
 
         file_put_contents($filename, $apidata);
+        fclose($link);
 
         return true;
     }
